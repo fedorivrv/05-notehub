@@ -1,1 +1,1 @@
-import css from './NoteForm.module.css'
+import css from './NoteForm.module.css';
