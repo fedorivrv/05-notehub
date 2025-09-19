@@ -1,11 +1,19 @@
-export default function fetchNotes() {
-  // Логіка отримання нотаток
+import type { Note } from '../types/notes';
+import api from './api';
+
+export interface GetNoteResponse {
+  notes: Note[];
+  totalPages: number;
 }
 
-export default function createNote(note) {
-  // Логіка створення нотатки
-}
+export async function fetchNotes(
+  query?: string,
+  page: number = 1,
+  perPage: number = 10
+): Promise<GetNoteResponse> {
+  const params: Record<string, any> = { page, perPage };
+  if (query) params.search = query;
 
-export default function deleteNote(id, notes) {
-  // Логіка видалення нотатки
+  const response = await api.get<GetNoteResponse>('/notes', { params });
+  return response.data;
 }
