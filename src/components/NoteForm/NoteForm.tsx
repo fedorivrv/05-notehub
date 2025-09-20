@@ -1,25 +1,25 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import css from './NoteForm.module.css';
-import type { CreateNotePayload } from '../../types/notes';
+import type { CreateNotePayload, NoteTag } from '../../types/notes';
 
 interface NoteFormProps {
   onSubmit: (values: CreateNotePayload) => void;
   onCancel: () => void;
 }
 
-const TAG_OPTIONS = ['Todo', 'Work', 'Personal', 'Meeting', 'Shopping'] as const;
+const TAG_OPTIONS: NoteTag[] = ['Todo', 'Work', 'Personal', 'Meeting', 'Shopping'];
 
-const validationSchema = Yup.object({
+const validationSchema = Yup.object<CreateNotePayload>({
   title: Yup.string()
     .min(3, 'Мінімум 3 символи')
     .max(50, 'Максимум 50 символів')
     .required('Обов’язкове поле'),
   content: Yup.string().max(500, 'Максимум 500 символів'),
-  tag: Yup.mixed<CreateNotePayload['tag']>()
+  tag: Yup.mixed<NoteTag>()
     .oneOf(TAG_OPTIONS)
     .required('Обов’язкове поле')
-    .defined(), // <-- це змушує Yup вважати поле завжди визначеним
+    .defined(), // <-- явно визначене поле
 });
 
 export default function NoteForm({ onSubmit, onCancel }: NoteFormProps) {
