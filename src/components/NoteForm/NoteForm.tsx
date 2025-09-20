@@ -39,8 +39,18 @@ export default function NoteForm({ onSubmit, onCancel }: NoteFormProps) {
 
           <div className={css.formGroup}>
             <label htmlFor="content">Content</label>
-            <Field as="textarea" id="content" name="content" rows={8} className={css.textarea} />
-            <ErrorMessage name="content" component="span" className={css.error} />
+            <Field
+              as="textarea"
+              id="content"
+              name="content"
+              rows={8}
+              className={css.textarea}
+            />
+            <ErrorMessage
+              name="content"
+              component="span"
+              className={css.error}
+            />
           </div>
 
           <div className={css.formGroup}>
@@ -56,10 +66,18 @@ export default function NoteForm({ onSubmit, onCancel }: NoteFormProps) {
           </div>
 
           <div className={css.actions}>
-            <button type="button" className={css.cancelButton} onClick={onCancel}>
+            <button
+              type="button"
+              className={css.cancelButton}
+              onClick={onCancel}
+            >
               Cancel
             </button>
-            <button type="submit" className={css.submitButton} disabled={isSubmitting}>
+            <button
+              type="submit"
+              className={css.submitButton}
+              disabled={isSubmitting}
+            >
               Create note
             </button>
           </div>

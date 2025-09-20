@@ -9,7 +9,8 @@ import type { GetNoteResponse, CreateNotePayload } from '../../types/notes';
 import Pagination from '../Pagination/Pagination';
 import Modal from '../Modal/Modal';
 import NoteForm from '../NoteForm/NoteForm';
-
+import Loader from '../Loader/Loader';
+import ErrorMessage from '../ErrorMessege/ErrorMessege';
 
 export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -32,12 +33,14 @@ export default function App() {
         queryKey: ['notes', debouncedQuery, page],
       });
     },
-  });  
+  });
 
-   const createMutation = useMutation({
+  const createMutation = useMutation({
     mutationFn: (payload: CreateNotePayload) => createNote(payload),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['notes', debouncedQuery, page] });
+      queryClient.invalidateQueries({
+        queryKey: ['notes', debouncedQuery, page],
+      });
       setIsModalOpen(false); // закриваємо модалку після створення
     },
   });
@@ -56,23 +59,23 @@ export default function App() {
             onPageChange={({ selected }) => setPage(selected + 1)}
           />
         )}
-        <button
-    className={css.createButton}
-    onClick={() => setIsModalOpen(true)}
-  >
-    Create note +
-  </button>
+        <button className={css.button} onClick={() => setIsModalOpen(true)}>
+          Create note +
+        </button>
       </header>
 
-      {isLoading && <p>Завантаження...</p>}
-      {error && <p>Помилка при завантаженні нотаток</p>}
+      {isLoading && <Loader />}
+      {error && <ErrorMessage />}
 
       {data && (
         <NoteList notes={data.notes} onDelete={(id) => mutation.mutate(id)} />
       )}
-        {isModalOpen && (
+      {isModalOpen && (
         <Modal onClose={() => setIsModalOpen(false)}>
-          <NoteForm onSubmit={handleCreateNote} onCancel={() => setIsModalOpen(false)} />
+          <NoteForm
+            onSubmit={handleCreateNote}
+            onCancel={() => setIsModalOpen(false)}
+          />
         </Modal>
       )}
     </div>
