@@ -14,14 +14,14 @@ const validationSchema = Yup.object({
     .max(50, 'Максимум 50 символів')
     .required('Обов’язкове поле'),
   content: Yup.string().max(500, 'Максимум 500 символів'),
-  tag: Yup.mixed<'Todo' | 'Work' | 'Personal' | 'Meeting' | 'Shopping'>()
+  tag: Yup.mixed<CreateNotePayload['tag']>()
     .oneOf(['Todo', 'Work', 'Personal', 'Meeting', 'Shopping'])
     .required('Обов’язкове поле'),
 });
 
 export default function NoteForm({ onSubmit, onCancel }: NoteFormProps) {
   return (
-    <Formik
+    <Formik<CreateNotePayload>
       initialValues={{ title: '', content: '', tag: 'Todo' }}
       validationSchema={validationSchema}
       onSubmit={(values, { resetForm }) => {
@@ -46,11 +46,7 @@ export default function NoteForm({ onSubmit, onCancel }: NoteFormProps) {
               rows={8}
               className={css.textarea}
             />
-            <ErrorMessage
-              name="content"
-              component="span"
-              className={css.error}
-            />
+            <ErrorMessage name="content" component="span" className={css.error} />
           </div>
 
           <div className={css.formGroup}>
@@ -66,18 +62,10 @@ export default function NoteForm({ onSubmit, onCancel }: NoteFormProps) {
           </div>
 
           <div className={css.actions}>
-            <button
-              type="button"
-              className={css.cancelButton}
-              onClick={onCancel}
-            >
+            <button type="button" className={css.cancelButton} onClick={onCancel}>
               Cancel
             </button>
-            <button
-              type="submit"
-              className={css.submitButton}
-              disabled={isSubmitting}
-            >
+            <button type="submit" className={css.submitButton} disabled={isSubmitting}>
               Create note
             </button>
           </div>
