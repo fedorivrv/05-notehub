@@ -13,7 +13,7 @@ export default function SearchBox({ value, onChange }: SearchBoxProps) {
       type="text"
       placeholder="Пошук нотаток..."
       value={value}
-      onChange={e => onChange(e.target.value)}
+      onChange={(e) => onChange(e.target.value)}
     />
   );
 }

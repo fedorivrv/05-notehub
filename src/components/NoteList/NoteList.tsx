@@ -3,7 +3,7 @@ import css from './NoteList.module.css';
 
 interface NoteListProps {
   notes: Note[];
-  onDelete?: (id: string) => void;
+  onDelete: (id: string) => void; // тепер обовʼязковий
 }
 
 export default function NoteList({ notes, onDelete }: NoteListProps) {
@@ -13,17 +13,18 @@ export default function NoteList({ notes, onDelete }: NoteListProps) {
 
   return (
     <ul className={css.list}>
-      {notes.map(note => (
+      {notes.map((note) => (
         <li key={note.id} className={css.listItem}>
           <h2 className={css.title}>{note.title}</h2>
           <p className={css.content}>{note.content}</p>
           <div className={css.footer}>
             {note.tag && <span className={css.tag}>{note.tag}</span>}
-            {onDelete && (
-              <button className={css.button} onClick={() => onDelete(note.id)}>
-                Delete
-              </button>
-            )}
+            <button
+              className={css.button}
+              onClick={() => onDelete(note.id)} // лише викликає колбек
+            >
+              Delete
+            </button>
           </div>
         </li>
       ))}

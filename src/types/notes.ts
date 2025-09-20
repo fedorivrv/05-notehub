@@ -6,3 +6,17 @@ export interface Note {
   content: string;
   tag: NoteTag;
 }
+
+export interface GetNoteResponse {
+  notes: Note[];
+  page: number;
+  perPage: number;
+  totalPages: number;
+  totalNotes: number;
+}
+
+export interface CreateNotePayload {
+  title: string;
+  content?: string;
+  tag?: NoteTag;
+}
