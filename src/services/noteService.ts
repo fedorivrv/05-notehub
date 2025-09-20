@@ -1,4 +1,4 @@
-import type { Note, GetNoteResponse, CreateNotePayload } from '../types/notes';
+import type { Note, GetNoteResponse, CreateNotePayload } from '../types/note';
 import api from './api';
 
 // === Отримати нотатки ===

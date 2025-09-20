@@ -5,7 +5,7 @@ import SearchBox from '../SearchBox/SearchBox';
 import css from './App.module.css';
 import { fetchNotes, deleteNote, createNote } from '../../services/noteService';
 import { useDebounce } from 'use-debounce';
-import type { GetNoteResponse, CreateNotePayload } from '../../types/notes';
+import type { GetNoteResponse, CreateNotePayload } from '../../types/note';
 import Pagination from '../Pagination/Pagination';
 import Modal from '../Modal/Modal';
 import NoteForm from '../NoteForm/NoteForm';
