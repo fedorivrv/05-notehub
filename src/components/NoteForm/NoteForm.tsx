@@ -8,6 +8,8 @@ interface NoteFormProps {
   onCancel: () => void;
 }
 
+const TAG_OPTIONS = ['Todo', 'Work', 'Personal', 'Meeting', 'Shopping'] as const;
+
 const validationSchema = Yup.object({
   title: Yup.string()
     .min(3, 'Мінімум 3 символи')
@@ -15,8 +17,9 @@ const validationSchema = Yup.object({
     .required('Обов’язкове поле'),
   content: Yup.string().max(500, 'Максимум 500 символів'),
   tag: Yup.mixed<CreateNotePayload['tag']>()
-    .oneOf(['Todo', 'Work', 'Personal', 'Meeting', 'Shopping'])
-    .required('Обов’язкове поле'),
+    .oneOf(TAG_OPTIONS)
+    .required('Обов’язкове поле')
+    .defined(), // <-- це змушує Yup вважати поле завжди визначеним
 });
 
 export default function NoteForm({ onSubmit, onCancel }: NoteFormProps) {
@@ -52,11 +55,11 @@ export default function NoteForm({ onSubmit, onCancel }: NoteFormProps) {
           <div className={css.formGroup}>
             <label htmlFor="tag">Tag</label>
             <Field as="select" id="tag" name="tag" className={css.select}>
-              <option value="Todo">Todo</option>
-              <option value="Work">Work</option>
-              <option value="Personal">Personal</option>
-              <option value="Meeting">Meeting</option>
-              <option value="Shopping">Shopping</option>
+              {TAG_OPTIONS.map((tag) => (
+                <option key={tag} value={tag}>
+                  {tag}
+                </option>
+              ))}
             </Field>
             <ErrorMessage name="tag" component="span" className={css.error} />
           </div>
