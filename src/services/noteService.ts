@@ -1,5 +1,13 @@
-import type { Note, GetNoteResponse, CreateNotePayload } from '../types/note';
+import type { Note, CreateNotePayload } from '../types/note';
 import api from './api';
+
+export interface GetNoteResponse {
+  notes: Note[];
+  page: number;
+  perPage: number;
+  totalPages: number;
+  totalNotes: number;
+}
 
 // === Отримати нотатки ===
 export async function fetchNotes(

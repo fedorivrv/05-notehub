@@ -5,14 +5,8 @@ export interface Note {
   title: string;
   content: string;
   tag: NoteTag;
-}
-
-export interface GetNoteResponse {
-  notes: Note[];
-  page: number;
-  perPage: number;
-  totalPages: number;
-  totalNotes: number;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface CreateNotePayload {

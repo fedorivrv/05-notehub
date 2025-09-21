@@ -3,14 +3,16 @@ import css from './Pagination.module.css';
 
 interface PaginationProps {
   pageCount: number;
+  currentPage: number;
   onPageChange: (selectedItem: { selected: number }) => void;
 }
 
 export default function Pagination({
   pageCount,
+  currentPage,
   onPageChange,
 }: PaginationProps) {
-  if (pageCount <= 1) return null; // показуємо тільки якщо сторінок більше 1
+  if (pageCount <= 1) return null;
 
   return (
     <ReactPaginate
@@ -21,6 +23,7 @@ export default function Pagination({
       pageRangeDisplayed={5}
       marginPagesDisplayed={2}
       pageCount={pageCount}
+      forcePage={currentPage}
       containerClassName={css.pagination}
       activeClassName={css.active}
     />
