@@ -8,6 +8,7 @@ import { createNote } from '../../services/noteService';
 
 interface NoteFormProps {
   onCancel: () => void;
+  onSuccess?: () => void; 
 }
 
 const TAG_OPTIONS: NoteTag[] = [
@@ -30,7 +31,7 @@ const validationSchema = Yup.object<CreateNotePayload>({
     .defined(),
 });
 
-export default function NoteForm({ onCancel }: NoteFormProps) {
+export default function NoteForm({ onCancel, onSuccess }: NoteFormProps) {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
@@ -38,6 +39,7 @@ export default function NoteForm({ onCancel }: NoteFormProps) {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['notes'] });
       onCancel();
+      if (onSuccess) onSuccess(); 
     },
   });
 

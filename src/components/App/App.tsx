@@ -75,7 +75,7 @@ export default function App() {
 
       {isModalOpen && (
         <Modal onClose={() => setIsModalOpen(false)}>
-          <NoteForm onCancel={() => setIsModalOpen(false)} />
+          <NoteForm onCancel={() => setIsModalOpen(false)} onSuccess={() => setCurrentPage(0)} />
         </Modal>
       )}
     </div>
